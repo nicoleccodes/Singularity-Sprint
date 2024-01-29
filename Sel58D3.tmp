@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://bndsgefxd6b7b"]
+
+[ext_resource type="Texture2D" uid="uid://xdpjawwmi04o" path="res://sprites/thumbnail_Untitled_Artwork 1.png" id="1_un5hn"]
+[ext_resource type="Texture2D" uid="uid://demxje26enhj4" path="res://GUI/Default.png" id="2_0ymad"]
+[ext_resource type="Script" path="res://scripts/highlight_play.gd" id="3_dh23e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jr43q"]
+size = Vector2(320, 163)
+
+[node name="Selection" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_un5hn")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.1, 1.1)
+
+[node name="quit" type="Sprite2D" parent="."]
+
+[node name="char1" type="Sprite2D" parent="."]
+
+[node name="char2" type="Sprite2D" parent="."]
+
+[node name="char3" type="Sprite2D" parent="."]
+
+[node name="char4" type="Sprite2D" parent="."]
+
+[node name="start_body" type="StaticBody2D" parent="."]
+script = ExtResource("3_dh23e")
+
+[node name="start" type="Sprite2D" parent="start_body"]
+position = Vector2(0, 318)
+scale = Vector2(2, 2)
+texture = ExtResource("2_0ymad")
+
+[node name="start_collision" type="CollisionShape2D" parent="start_body"]
+position = Vector2(0, 310.5)
+shape = SubResource("RectangleShape2D_jr43q")

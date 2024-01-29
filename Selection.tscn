@@ -1,0 +1,114 @@
+[gd_scene load_steps=15 format=3 uid="uid://bndsgefxd6b7b"]
+
+[ext_resource type="Texture2D" uid="uid://xdpjawwmi04o" path="res://sprites/thumbnail_Untitled_Artwork 1.png" id="1_un5hn"]
+[ext_resource type="Texture2D" uid="uid://demxje26enhj4" path="res://GUI/Default.png" id="2_0ymad"]
+[ext_resource type="Script" path="res://scripts/highlight_play.gd" id="3_dh23e"]
+[ext_resource type="Script" path="res://scripts/char_highlight.gd" id="4_ar6hy"]
+[ext_resource type="Texture2D" uid="uid://cu20h2ekmdilg" path="res://sprites/Untitled_Artwork.PNG" id="4_ymeuf"]
+[ext_resource type="Texture2D" uid="uid://xyv4ktjkojrt" path="res://sprites/Giraffe.PNG" id="5_xmdty"]
+[ext_resource type="Texture2D" uid="uid://dwn8mrfgomrmf" path="res://sprites/Untitled_Artwork (2).PNG" id="6_b1tc1"]
+[ext_resource type="Script" path="res://scripts/char_highlight2.gd" id="6_ej8bf"]
+[ext_resource type="Script" path="res://scripts/char_highlight3.gd" id="8_pigu4"]
+[ext_resource type="AudioStream" uid="uid://b3kqdwibpg4ao" path="res://music/Title theme.wav" id="10_4rowe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jr43q"]
+size = Vector2(320, 163)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqk3k"]
+size = Vector2(344, 354)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cq1g"]
+size = Vector2(255, 441)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_441y7"]
+size = Vector2(313, 363)
+
+[node name="Selection" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_un5hn")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+
+[node name="quit" type="Sprite2D" parent="."]
+
+[node name="start_body" type="StaticBody2D" parent="."]
+position = Vector2(0, -6)
+script = ExtResource("3_dh23e")
+
+[node name="start" type="Sprite2D" parent="start_body"]
+position = Vector2(0, 318)
+scale = Vector2(2, 2)
+texture = ExtResource("2_0ymad")
+metadata/_edit_lock_ = true
+
+[node name="start_collision" type="CollisionShape2D" parent="start_body"]
+position = Vector2(0, 310.5)
+shape = SubResource("RectangleShape2D_jr43q")
+metadata/_edit_lock_ = true
+
+[node name="char1_body" type="StaticBody2D" parent="."]
+position = Vector2(-223, 493)
+script = ExtResource("4_ar6hy")
+
+[node name="char1" type="Sprite2D" parent="char1_body"]
+texture = ExtResource("4_ymeuf")
+metadata/_edit_lock_ = true
+
+[node name="char1_collision" type="CollisionShape2D" parent="char1_body"]
+position = Vector2(-320, -720)
+shape = SubResource("RectangleShape2D_hqk3k")
+metadata/_edit_lock_ = true
+
+[node name="box" type="Sprite2D" parent="char1_body"]
+position = Vector2(-316.5, -715)
+scale = Vector2(13.7188, 14.375)
+
+[node name="char2_body" type="StaticBody2D" parent="."]
+position = Vector2(-235, 397)
+script = ExtResource("6_ej8bf")
+
+[node name="char2" type="Sprite2D" parent="char2_body"]
+texture = ExtResource("5_xmdty")
+metadata/_edit_lock_ = true
+
+[node name="char2_collision" type="CollisionShape2D" parent="char2_body"]
+position = Vector2(218.5, -627.5)
+shape = SubResource("RectangleShape2D_5cq1g")
+metadata/_edit_lock_ = true
+
+[node name="box" type="Sprite2D" parent="char2_body"]
+position = Vector2(221.5, -623)
+scale = Vector2(14.5313, 17.375)
+
+[node name="char3_body" type="StaticBody2D" parent="."]
+position = Vector2(838, -108)
+script = ExtResource("8_pigu4")
+
+[node name="char3" type="Sprite2D" parent="char3_body"]
+texture = ExtResource("6_b1tc1")
+metadata/_edit_lock_ = true
+
+[node name="char3_collision" type="CollisionShape2D" parent="char3_body"]
+position = Vector2(-306.5, -138.5)
+shape = SubResource("RectangleShape2D_441y7")
+metadata/_edit_lock_ = true
+
+[node name="box" type="Sprite2D" parent="char3_body"]
+position = Vector2(-313, -126)
+scale = Vector2(13.25, 15.875)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_4rowe")
+autoplay = true
+
+[connection signal="mouse_entered" from="start_body" to="start_body" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="start_body" to="start_body" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="char1_body" to="char1_body" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="char1_body" to="char1_body" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="char2_body" to="char2_body" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="char2_body" to="char2_body" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="char3_body" to="char3_body" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="char3_body" to="char3_body" method="_on_mouse_exited"]
