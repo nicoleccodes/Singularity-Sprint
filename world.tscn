@@ -1,0 +1,911 @@
+[gd_scene load_steps=76 format=3 uid="uid://byr510ght4f1m"]
+
+[ext_resource type="Script" path="res://scripts/summon.gd" id="1_4asem"]
+[ext_resource type="Texture2D" uid="uid://co2r1try575vo" path="res://sprites/OIP.jpg" id="1_rnhnd"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="2_jxtjc"]
+[ext_resource type="Texture2D" uid="uid://bqwaetwc8yssp" path="res://animations/C1.PNG" id="3_263ee"]
+[ext_resource type="Script" path="res://scripts/pl_overlap.gd" id="4_jnquv"]
+[ext_resource type="Script" path="res://scripts/throw.gd" id="4_wj5jx"]
+[ext_resource type="Script" path="res://scripts/jump_anim.gd" id="5_44ava"]
+[ext_resource type="AudioStream" uid="uid://dxe14ckbnapya" path="res://music/fart.mp3" id="5_qjfhm"]
+[ext_resource type="AudioStream" uid="uid://daq6linujsxau" path="res://music/cartoon-jump-6462.mp3" id="6_fl0xx"]
+[ext_resource type="Script" path="res://scripts/bul_overlap.gd" id="6_o6hdq"]
+[ext_resource type="Texture2D" uid="uid://5mtesb0lr7x1" path="res://sprites/thumbnail_Untitled_Artwork.png" id="6_u1sh0"]
+[ext_resource type="Script" path="res://scripts/change.gd" id="7_b1qdf"]
+[ext_resource type="Texture2D" uid="uid://ccmgufsohg7k" path="res://sprites/thumbnail_Untitled_Artwork 2.png" id="7_h2trf"]
+[ext_resource type="Script" path="res://scripts/score.gd" id="12_llobl"]
+[ext_resource type="Texture2D" uid="uid://v5xrxwjceuu7" path="res://animations/BH0.PNG" id="13_6et4s"]
+[ext_resource type="Script" path="res://scripts/black_hole_anim.gd" id="14_xslga"]
+[ext_resource type="Texture2D" uid="uid://rhb8546ijcw2" path="res://sprites/Untitled_Artwork (3).PNG" id="15_07gfb"]
+[ext_resource type="Texture2D" uid="uid://7wxams1hf44" path="res://sprites/Untitled_Artwork (5).PNG" id="16_4ehay"]
+[ext_resource type="Texture2D" uid="uid://gskkgu0e8rfj" path="res://sprites/Untitled_Artwork (6).PNG" id="17_gae8i"]
+[ext_resource type="Texture2D" uid="uid://do44jil6s2nik" path="res://sprites/Untitled_Artwork (7).PNG" id="18_7gvnc"]
+[ext_resource type="Texture2D" uid="uid://dgqngrd22ge3" path="res://sprites/Untitled_Artwork (8).PNG" id="19_ngb8n"]
+[ext_resource type="Texture2D" uid="uid://bdbi8kylb88to" path="res://sprites/Untitled_Artwork (9).PNG" id="20_81xx8"]
+[ext_resource type="Texture2D" uid="uid://bo3x2yj0neug8" path="res://sprites/Untitled_Artwork (10).PNG" id="21_hjjum"]
+[ext_resource type="Texture2D" uid="uid://6gvvvxkchifg" path="res://sprites/yarn.PNG" id="22_fici8"]
+[ext_resource type="AudioStream" uid="uid://c26lv7tjrppfw" path="res://music/Main Theme.wav" id="25_62y6q"]
+[ext_resource type="Script" path="res://scripts/end.gd" id="26_d2itb"]
+[ext_resource type="Texture2D" uid="uid://xdpjawwmi04o" path="res://sprites/thumbnail_Untitled_Artwork 1.png" id="26_etxxb"]
+[ext_resource type="Script" path="res://scripts/toss.gd" id="28_obyfg"]
+[ext_resource type="Texture2D" uid="uid://cq40rtg8s6bk2" path="res://animations/M1.PNG" id="29_rbjsx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1mrhx"]
+size = Vector2(58, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3pxq"]
+size = Vector2(60, 65)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jh7ya"]
+size = Vector2(1090, 177)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ca0bp"]
+size = Vector2(70, 91)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ak7m"]
+size = Vector2(70, 92)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wq4rj"]
+size = Vector2(1269.33, 680.135)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gptyk"]
+size = Vector2(72, 575)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3m8ua"]
+size = Vector2(45, 564)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3i43"]
+size = Vector2(97, 136)
+
+[sub_resource type="GDScript" id="GDScript_kg3e7"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if has_overlapping_areas():
+		var parent = get_parent()
+		parent.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_70rrx"]
+size = Vector2(66.3333, 92)
+
+[sub_resource type="GDScript" id="GDScript_hfia2"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	
+	velocity.x = -300
+	velocity.y = 0
+
+	move_and_slide()
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kclcj"]
+load_path = "res://.godot/imported/Untitled_Artwork (4).PNG-5e4cc511939a4c48618f32e9b3ac4d8f.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y87lj"]
+size = Vector2(36, 38)
+
+[sub_resource type="GDScript" id="GDScript_0a2jo"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if has_overlapping_areas():
+		var parent = get_parent()
+		parent.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5mlc"]
+size = Vector2(25.3333, 26.6667)
+
+[sub_resource type="GDScript" id="GDScript_dipxm"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	
+	velocity.x = -300
+	velocity.y = 0
+
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wnn72"]
+size = Vector2(83, 93)
+
+[sub_resource type="GDScript" id="GDScript_q2dyd"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if has_overlapping_areas():
+		var parent = get_parent()
+		parent.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iw2iv"]
+size = Vector2(56.6666, 63.3333)
+
+[sub_resource type="GDScript" id="GDScript_ykc7h"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	
+	velocity.x = -300
+	velocity.y = 0
+
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_33v8l"]
+size = Vector2(44, 54)
+
+[sub_resource type="GDScript" id="GDScript_oehrp"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if has_overlapping_areas():
+		var parent = get_parent()
+		parent.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7ncs"]
+size = Vector2(30.6667, 37.3333)
+
+[sub_resource type="GDScript" id="GDScript_ak16t"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	
+	velocity.x = -300
+	velocity.y = 0
+
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwefj"]
+size = Vector2(73, 56)
+
+[sub_resource type="GDScript" id="GDScript_oyguf"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if has_overlapping_areas():
+		var parent = get_parent()
+		parent.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e7k63"]
+size = Vector2(50, 38.6666)
+
+[sub_resource type="GDScript" id="GDScript_y0ddh"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	
+	velocity.x = -300
+	velocity.y = 0
+
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1moqs"]
+size = Vector2(55, 45)
+
+[sub_resource type="GDScript" id="GDScript_gooqv"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if has_overlapping_areas():
+		var parent = get_parent()
+		parent.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qr50o"]
+size = Vector2(38, 31.3333)
+
+[sub_resource type="GDScript" id="GDScript_mqblf"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	
+	velocity.x = -300
+	velocity.y = 0
+
+	move_and_slide()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hw5a5"]
+radius = 19.5064
+
+[sub_resource type="GDScript" id="GDScript_mahxu"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if has_overlapping_areas():
+		var parent = get_parent()
+		parent.queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iudqj"]
+radius = 13.6708
+
+[sub_resource type="GDScript" id="GDScript_iyxto"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	
+	velocity.x = -300
+	velocity.y = 0
+
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y25rl"]
+size = Vector2(85, 78)
+
+[sub_resource type="GDScript" id="GDScript_00etf"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if has_overlapping_areas():
+		var parent = get_parent()
+		parent.queue_free()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcdkc"]
+size = Vector2(58, 53.3333)
+
+[sub_resource type="GDScript" id="GDScript_u2o1f"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	
+	velocity.x = -300
+	velocity.y = 0
+
+	move_and_slide()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2lbxl"]
+radius = 40.5
+
+[sub_resource type="GDScript" id="GDScript_i32y5"]
+script/source = "extends Area2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if has_overlapping_areas():
+		var parent = get_parent()
+		parent.queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4xxg7"]
+radius = 29.0077
+
+[sub_resource type="LabelSettings" id="LabelSettings_eugwe"]
+font_size = 50
+font_color = Color(0.427451, 0.462745, 0.517647, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uis3g"]
+font_size = 50
+
+[node name="World" type="Node2D"]
+position = Vector2(101, 25)
+script = ExtResource("1_4asem")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(473, 252)
+zoom = Vector2(2.2, 2.2)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="player" type="Node2D" parent="."]
+top_level = true
+position = Vector2(574, 370)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="player"]
+script = ExtResource("2_jxtjc")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="player/CharacterBody2D"]
+position = Vector2(76, 142)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_263ee")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player/CharacterBody2D"]
+position = Vector2(1, -1.5)
+shape = SubResource("RectangleShape2D_1mrhx")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="player/CharacterBody2D"]
+script = ExtResource("4_jnquv")
+metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="player/CharacterBody2D/Area2D"]
+position = Vector2(-473, -345)
+stream = ExtResource("5_qjfhm")
+volume_db = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player/CharacterBody2D/Area2D"]
+position = Vector2(1, -1.5)
+shape = SubResource("RectangleShape2D_c3pxq")
+metadata/_edit_lock_ = true
+
+[node name="Sprite_jump" type="Sprite2D" parent="player/CharacterBody2D"]
+position = Vector2(290, 33)
+scale = Vector2(0.5, 0.12)
+script = ExtResource("5_44ava")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="player/CharacterBody2D"]
+stream = ExtResource("6_fl0xx")
+
+[node name="wall" type="Node2D" parent="."]
+position = Vector2(476, 511)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="wall"]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall/StaticBody2D"]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_jh7ya")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="wall/StaticBody2D"]
+scale = Vector2(8, 1)
+texture = ExtResource("1_rnhnd")
+metadata/_edit_lock_ = true
+
+[node name="death" type="Node2D" parent="."]
+position = Vector2(867, 218)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="death"]
+position = Vector2(-1720, 334)
+script = ExtResource("4_wj5jx")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="death/CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_rnhnd")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="death/CharacterBody2D"]
+shape = SubResource("RectangleShape2D_ca0bp")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="death/CharacterBody2D"]
+script = ExtResource("6_o6hdq")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="death/CharacterBody2D/Area2D"]
+shape = SubResource("RectangleShape2D_4ak7m")
+metadata/_edit_lock_ = true
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(473, 210)
+scale = Vector2(1, 0.6)
+texture = ExtResource("6_u1sh0")
+script = ExtResource("7_b1qdf")
+metadata/_edit_lock_ = true
+
+[node name="ground" type="Sprite2D" parent="."]
+position = Vector2(439, 505)
+scale = Vector2(1.5, 0.297)
+texture = ExtResource("7_h2trf")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground/StaticBody2D"]
+position = Vector2(44.0001, 50.505)
+shape = SubResource("RectangleShape2D_wq4rj")
+
+[node name="background2" type="Sprite2D" parent="."]
+position = Vector2(-1446, 210)
+scale = Vector2(1, 0.6)
+texture = ExtResource("6_u1sh0")
+flip_h = true
+
+[node name="timer" type="Node2D" parent="."]
+script = ExtResource("12_llobl")
+
+[node name="score" type="Sprite2D" parent="timer"]
+
+[node name="Label" type="Label" parent="timer"]
+offset_left = 321.0
+offset_top = -40.0
+offset_right = 631.0
+offset_bottom = 6.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlackHole" type="Node2D" parent="."]
+
+[node name="black_hole" type="Sprite2D" parent="BlackHole"]
+position = Vector2(480, 235)
+texture = ExtResource("13_6et4s")
+script = ExtResource("14_xslga")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="BlackHole" groups=["Black_Hole"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlackHole/StaticBody2D"]
+position = Vector2(-44, 135.5)
+shape = SubResource("RectangleShape2D_gptyk")
+
+[node name="Area2D" type="Area2D" parent="BlackHole"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlackHole/Area2D"]
+position = Vector2(-30.5, 141)
+shape = SubResource("RectangleShape2D_3m8ua")
+
+[node name="proj1" type="Node2D" parent="."]
+position = Vector2(891, 452)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="proj1"]
+position = Vector2(-1720, 334)
+script = ExtResource("4_wj5jx")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="proj1/CharacterBody2D"]
+position = Vector2(-80, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("15_07gfb")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj1/CharacterBody2D"]
+position = Vector2(25.5, 30)
+shape = SubResource("RectangleShape2D_u3i43")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="proj1/CharacterBody2D"]
+position = Vector2(23, 30)
+scale = Vector2(1.5, 1.5)
+script = SubResource("GDScript_kg3e7")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj1/CharacterBody2D/Area2D"]
+position = Vector2(1.83331, 0)
+shape = SubResource("RectangleShape2D_70rrx")
+metadata/_edit_lock_ = true
+
+[node name="proj2" type="Node2D" parent="."]
+position = Vector2(662, 447)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="proj2"]
+position = Vector2(-1720, 334)
+script = SubResource("GDScript_hfia2")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="proj2/CharacterBody2D"]
+position = Vector2(106, 80)
+scale = Vector2(0.2, 0.2)
+texture = SubResource("CompressedTexture2D_kclcj")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj2/CharacterBody2D"]
+position = Vector2(27, 27)
+shape = SubResource("RectangleShape2D_y87lj")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="proj2/CharacterBody2D"]
+position = Vector2(23, 30)
+scale = Vector2(1.5, 1.5)
+script = SubResource("GDScript_0a2jo")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj2/CharacterBody2D/Area2D"]
+position = Vector2(2.66669, -2)
+shape = SubResource("RectangleShape2D_k5mlc")
+metadata/_edit_lock_ = true
+
+[node name="proj3" type="Node2D" parent="."]
+position = Vector2(592, 448)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="proj3"]
+position = Vector2(-1720, 334)
+script = SubResource("GDScript_dipxm")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="proj3/CharacterBody2D"]
+position = Vector2(-126, 87)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("16_4ehay")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj3/CharacterBody2D"]
+position = Vector2(19.5, 30.5)
+shape = SubResource("RectangleShape2D_wnn72")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="proj3/CharacterBody2D"]
+position = Vector2(23, 30)
+scale = Vector2(1.5, 1.5)
+script = SubResource("GDScript_q2dyd")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj3/CharacterBody2D/Area2D"]
+position = Vector2(-2.33325, 0.333374)
+shape = SubResource("RectangleShape2D_iw2iv")
+metadata/_edit_lock_ = true
+
+[node name="proj4" type="Node2D" parent="."]
+position = Vector2(566, 300)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="proj4"]
+position = Vector2(-1720, 334)
+script = SubResource("GDScript_ykc7h")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="proj4/CharacterBody2D"]
+position = Vector2(65, 22)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("17_gae8i")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj4/CharacterBody2D"]
+position = Vector2(21, 33)
+shape = SubResource("RectangleShape2D_33v8l")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="proj4/CharacterBody2D"]
+position = Vector2(23, 30)
+scale = Vector2(1.5, 1.5)
+script = SubResource("GDScript_oehrp")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj4/CharacterBody2D/Area2D"]
+position = Vector2(-1.33331, 2)
+shape = SubResource("RectangleShape2D_f7ncs")
+metadata/_edit_lock_ = true
+
+[node name="proj5" type="Node2D" parent="."]
+position = Vector2(463, 301)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="proj5"]
+position = Vector2(-1720, 334)
+script = SubResource("GDScript_ak16t")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="proj5/CharacterBody2D"]
+position = Vector2(93, -45)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("18_7gvnc")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj5/CharacterBody2D"]
+position = Vector2(19.5, 32)
+shape = SubResource("RectangleShape2D_qwefj")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="proj5/CharacterBody2D"]
+position = Vector2(23, 30)
+scale = Vector2(1.5, 1.5)
+script = SubResource("GDScript_oyguf")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj5/CharacterBody2D/Area2D"]
+position = Vector2(-2.33331, 1.33334)
+shape = SubResource("RectangleShape2D_e7k63")
+metadata/_edit_lock_ = true
+
+[node name="proj6" type="Node2D" parent="."]
+position = Vector2(738, 316)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="proj6"]
+position = Vector2(-1720, 334)
+script = SubResource("GDScript_y0ddh")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="proj6/CharacterBody2D"]
+position = Vector2(160, -21)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("19_ngb8n")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj6/CharacterBody2D"]
+position = Vector2(17.5, 30.5)
+shape = SubResource("RectangleShape2D_1moqs")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="proj6/CharacterBody2D"]
+position = Vector2(23, 30)
+scale = Vector2(1.5, 1.5)
+script = SubResource("GDScript_gooqv")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj6/CharacterBody2D/Area2D"]
+position = Vector2(-3.66669, 0.333344)
+shape = SubResource("RectangleShape2D_qr50o")
+metadata/_edit_lock_ = true
+
+[node name="proj7" type="Node2D" parent="."]
+position = Vector2(660, 254)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="proj7"]
+position = Vector2(-1720, 334)
+script = SubResource("GDScript_mqblf")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="proj7/CharacterBody2D"]
+position = Vector2(-57, 113)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("20_81xx8")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj7/CharacterBody2D"]
+position = Vector2(18.5, 29.5)
+shape = SubResource("CircleShape2D_hw5a5")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="proj7/CharacterBody2D"]
+position = Vector2(23, 30)
+scale = Vector2(1.5, 1.5)
+script = SubResource("GDScript_mahxu")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj7/CharacterBody2D/Area2D"]
+position = Vector2(-3.00006, -0.333313)
+shape = SubResource("CircleShape2D_iudqj")
+metadata/_edit_lock_ = true
+
+[node name="proj8" type="Node2D" parent="."]
+position = Vector2(740, 224)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="proj8"]
+position = Vector2(-1720, 334)
+script = SubResource("GDScript_iyxto")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="proj8/CharacterBody2D"]
+position = Vector2(6, -21)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("21_hjjum")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj8/CharacterBody2D"]
+position = Vector2(19.5, 33)
+shape = SubResource("RectangleShape2D_y25rl")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="proj8/CharacterBody2D"]
+position = Vector2(23, 30)
+scale = Vector2(1.5, 1.5)
+script = SubResource("GDScript_00etf")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj8/CharacterBody2D/Area2D"]
+position = Vector2(-2.33331, 2)
+shape = SubResource("RectangleShape2D_hcdkc")
+metadata/_edit_lock_ = true
+
+[node name="proj9" type="Node2D" parent="."]
+position = Vector2(747, 450)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="proj9"]
+position = Vector2(-1720, 334)
+script = SubResource("GDScript_u2o1f")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="proj9/CharacterBody2D"]
+position = Vector2(26, 96)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("22_fici8")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj9/CharacterBody2D"]
+position = Vector2(14.5, 33)
+shape = SubResource("CircleShape2D_2lbxl")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="proj9/CharacterBody2D"]
+position = Vector2(23, 30)
+scale = Vector2(1.5, 1.5)
+script = SubResource("GDScript_i32y5")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="proj9/CharacterBody2D/Area2D"]
+position = Vector2(-5, 2)
+shape = SubResource("CircleShape2D_4xxg7")
+metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("25_62y6q")
+autoplay = true
+
+[node name="end" type="Node2D" parent="."]
+position = Vector2(3000, 250)
+scale = Vector2(0.7, 0.7)
+script = ExtResource("26_d2itb")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="end"]
+texture = ExtResource("26_etxxb")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="end"]
+offset_left = -674.0
+offset_top = -274.0
+offset_right = 676.0
+offset_bottom = 23.0
+text = "Game Over!
+Press space to restart
+
+You survived for "
+label_settings = SubResource("LabelSettings_eugwe")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Label2" type="Label" parent="end"]
+offset_left = -247.0
+offset_top = 51.0
+offset_right = 167.0
+offset_bottom = 223.0
+label_settings = SubResource("LabelSettings_uis3g")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Label3" type="Label" parent="end"]
+offset_left = -671.0
+offset_top = 139.0
+offset_right = 676.0
+offset_bottom = 387.0
+text = "Seconds"
+label_settings = SubResource("LabelSettings_eugwe")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="end"]
+stream = ExtResource("25_62y6q")
+autoplay = true
+
+[node name="guy" type="Node2D" parent="."]
+position = Vector2(1008, 319)
+script = ExtResource("28_obyfg")
+
+[node name="Sprite2D" type="Sprite2D" parent="guy"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("29_rbjsx")
